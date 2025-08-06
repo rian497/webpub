@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LUMISKINN</title>
+  <style>
+    h1 {
+      margin: 0;
+      padding: 0;
+      color: #B03030;
+    }
+    
+    h3 {
+      margin: 0;
+      padding: 0;
+      color: #B03030;
+    }
+    
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    
+    a {
+      color: #D94D4D;
+      text-decoration: none;
+    }
+    
+    .navbar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      width: calc(100% - 60px);
+      background-color: white;
+      z-index: 1000;
+      border-bottom: 1px solid #eee;
+      box-sizing: border-box;
+    }
+
+    .nav-left {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 20px;
+      color: #B03030;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .nav-left a {
+      text-decoration: none;
+      color: #D94D4D;
+      font-size: 14px;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-left a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #B03030;
+      transition: width 0.3s ease;
+    }
+
+    .nav-left a:hover {
+      color: #B03030;
+    }
+
+    .nav-left a:hover::after {
+      width: 100%;
+    }
+
+    .nav-left a.active {
+      color: #B03030;
+    }
+
+    .nav-left a.active::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .selector {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #B03030;
+      position: relative;
+    }
+
+    .selector select {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: #B03030;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 5px 20px 5px 10px;
+      cursor: pointer;
+    }
+
+    .selector select:focus {
+      outline: none;
+    }
+
+    .selector::after {
+      content: "▼";
+      position: absolute;
+      right: 10px;
+      font-size: 10px;
+      pointer-events: none;
+    }
+
+    .icon-group {
+      display: flex;
+      gap: 16px;
+      align-items: center; 
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 40px;
+    }
+    
+    .search-input {
+      width: 0;
+      height: 36px;
+      padding: 8px 12px;
+      border: 2px solid #D94D4D;
+      border-radius: 20px;
+      font-size: 14px;
+      background: white;
+      color: #333;
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+      opacity: 0;
+      transform: translateX(40px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-input::placeholder {
+      color: #999;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 0;
+      width: 36px;
+      height: 36px;
+      background: #D94D4D;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .search-icon:before {
+      content: '🔍';
+      font-size: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .search-icon:hover:before {
+      transform: scale(1.1);
+    }
+
+    .search-container:hover .search-input {
+      width: 200px;
+      opacity: 1;
+      transform: translateX(0);
+      padding-right: 50px;
+    }
+
+    .search-container:hover .search-icon {
+      background: #B03030;
+      transform: scale(1.05);
+    }
+
+    .search-input:focus {
+      border-color: #B03030;
+      box-shadow: 0 4px 12px rgba(176, 48, 48, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .search-container:hover .search-input {
+        width: 150px;
+      }
+    }
+    
+    .filterDiv {
+      background-color: white;
+      color: #B03030;
+      width: 184px;
+      height: 209px;
+      line-height: 20px;
+      text-align: center;
+      margin: 2px;
+      display: none;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+    
+    .filterDiv img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    
+    .show {
+      display: block;
+    }
+
+    .container {
+      overflow: visible;
+      color: #D94D4D;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .btn {
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #f9d5d5;
+      color: #B03030;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      background-color: #f5b7b7;
+      transform: scale(1.05);
+    }
+
+    .btn.active {
+      background-color: #B03030;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .featured-product {
+      display: flex; 
+      gap: 20px;
+      width: 100%;
+      flex-shrink: 0;
+      padding: 0 180px;
+      margin-top: 20px;  
+    }
+    
+    .navbar-bottom {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px 30px;
+      position: fixed;
+      bottom: 0;
+      width: calc(100% - 60px);
+      background-color: white;
+      z-index: 1000;
+      border-top: 1px solid #eee;
+      box-sizing: border-box;
+    }
+    
+    .cart {
+      border: 2px solid #B03030;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      width: 150px;
+    }	
+    
+    .cart img {
+      width: 30px;
+      vertical-align: middle;
+    }
+    
+    .filterDiv:hover {
+      transform: scale(1.02);
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar-top">
+    <div class="nav-left">
+      <a href="home.html"><big>Home</big></a>
+      <a href="catalog.html" class="active" id="catalog-link"><big>Catalog</big></a>
+      <a href="contact.html"><big>Contact</big></a>
+    </div>
+
+    <div class="nav-center">
+      <big><big>LUMISKINN</big></big>
+    </div>
+
+    <div class="nav-right">
+      <div class="selector">
+        <select name="conversion" id="conversion">
+          <option>Singapore | SGD $</option>
+          <option>China | Yuan ¥</option>
+          <option>America | USD $</option>
+        </select>
+      </div>
+      <div class="icon-group">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search products...">
+          <div class="search-icon"></div>
+        </div>
+        <a href="#" style="font-size: 20px;">👤</a>
+        <a href="cart.html" style="font-size: 20px;">🛒</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Products</h1>
+    <h3>Filter</h3>
+    <div id="myBtnContainer">
+      <button class="btn active" onclick="filterSelection('all')">Show all</button>
+      <button class="btn" onclick="filterSelection('face')">Face</button>
+      <button class="btn" onclick="filterSelection('placeholder')">Placeholder</button>
+      <button class="btn" onclick="filterSelection('body')">Body</button>
+    </div>
+    
+    <div class="container">
+      <div class="filterDiv face">
+        <img src="picture3.png" alt="Product Image">
+        <br><a href="google.com"><b><big>Face Product</big></b></a><br>$5.99 SGD
+      </div>
+      <div class="filterDiv face">
+        <img src="picture3.png" alt="Product Image">
+        <br><a href="google.com"><b><big>Face Product</big></b></a><br>$5.99 SGD
+      </div>
+      <div class="filterDiv placeholder">
+        <img src="picture3.png" alt="Product Image">
+        <br><a href="google.com"><b><big>Placeholder Product</big></b></a><br>$5.99 SGD
+      </div>
+      <div class="filterDiv body">
+        <img src="picture3.png" alt="Product Image">
+        <br><a href="google.com"><b><big>Body Product</big></b></a><br>$5.99 SGD
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar-bottom">
+    <div class="cart">
+      <a href="google.com">
+        <h1 style="text-align:center; margin: 5px 0;">
+          Cart <span style="font-size: 20px;">🛒</span>
+        </h1>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    filterSelection("all")
+    
+    function filterSelection(c) {
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
+    }
+
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {
+          element.className += " " + arr2[i];
+        }
+      }
+    }
+
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);     
+        }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function(){
+        var current = document.getElementsByClassName("active");
+        if (current[0]) {
+          current[0].className = current[0].className.replace(" active", "");
+        }
+        this.className += " active";
+      });
+    }
+  </script>
+</body>
+</html>
