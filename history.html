@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LUMISKINN - About Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: white;
+      z-index: 1000;
+      border-bottom: 1px solid #eee;
+      box-sizing: border-box;
+    }
+    
+    .nav-left {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      font-size: 20px;
+      color: #B03030;
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .navbar a {
+      text-decoration: none;
+      color: #D94D4D;
+      font-size: 14px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #B03030;
+      transition: width 0.3s ease;
+    }
+    
+    .navbar a:hover::after {
+      width: 100%;
+    }
+    
+    .navbar a:hover {
+      text-decoration: none;
+      color: #B03030;
+    }
+    
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .selector {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #B03030;
+      position: relative;
+    }
+    
+    .selector select {
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      color: #B03030;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 5px 20px 5px 10px;
+      cursor: pointer;
+    }
+    
+    .selector select:focus {
+      outline: none;
+    }
+    
+    .selector::after {
+      content: "▼";
+      position: absolute;
+      right: 10px;
+      font-size: 10px;
+      pointer-events: none;
+    }
+    
+    .icon-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 40px;
+    }
+    
+    .search-input {
+      width: 0;
+      height: 36px;
+      padding: 8px 12px;
+      border: 2px solid #D94D4D;
+      border-radius: 20px;
+      font-size: 14px;
+      background: white;
+      color: #333;
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      opacity: 0;
+      transform: translateX(40px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .search-input::placeholder {
+      color: #999;
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 0;
+      width: 36px;
+      height: 36px;
+      background: #D94D4D;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .search-icon:before {
+      content: '🔍';
+      font-size: 16px;
+      transition: transform 0.3s ease;
+    }
+    
+    .search-icon:hover:before {
+      transform: scale(1.1);
+    }
+    
+    .search-container:hover .search-input {
+      width: 200px;
+      opacity: 1;
+      transform: translateX(0);
+      padding-right: 50px;
+    }
+    
+    .search-container:hover .search-icon {
+      background: #B03030;
+      transform: scale(1.05);
+    }
+    
+    .search-input:focus {
+      border-color: #B03030;
+      box-shadow: 0 4px 12px rgba(176, 48, 48, 0.2);
+    }
+
+    .main-content {
+      margin-top: 80px;
+      padding: 40px 20px;
+    }
+
+    .about-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .about-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #8B4B4B;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .content-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .text-content {
+      padding: 20px;
+    }
+
+    .text-content p {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #555;
+      text-align: justify;
+    }
+
+    .highlight-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: #B03030;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    .video-container {
+      background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+      height: 400px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 2px solid #ddd;
+      position: relative;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 13px;
+    }
+
+    /* Fallback styling if video doesn't load */
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 18px;
+      z-index: -1;
+    }
+
+    .values-section {
+      margin-top: 60px;
+      padding: 40px 0;
+    }
+
+    .values-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .value-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-color: #D94D4D;
+    }
+
+    .value-icon {
+      font-size: 40px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .value-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #B03030;
+      margin-bottom: 15px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .value-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .cta-section {
+      background: #D94D4D;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .cta-text {
+      font-size: 18px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: white;
+      color: #B03030;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      background: #f9f9f9;
+    }
+
+    @media (max-width: 768px) {
+      .content-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .about-header h1 {
+        font-size: 36px;
+      }
+      
+      .navbar {
+        padding: 15px 20px;
+      }
+      
+      .nav-left {
+        gap: 15px;
+      }
+      
+      .search-container:hover .search-input {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="nav-left">
+      <a href="index.html"><big>Home</big></a>
+      <a href="catalog.html"><big>Catalog</big></a>
+      <a href="contact.html"><big>Contact</big></a>
+    </div>
+    <div class="nav-center">
+      <big><big>LUMISKINN</big></big>
+    </div>
+    <div class="nav-right">
+      <div class="selector">
+        <select name="conversion" id="conversion">
+          <option>Singapore | SGD $</option>
+          <option>China | Yuan ¥</option>
+          <option>America | USD $</option>
+        </select>
+      </div>
+      <div class="icon-group">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search products...">
+          <div class="search-icon"></div>
+        </div>
+        <a href="#">👤</a>
+        <a href="cart.html">🛒</a>
+      </div>
+      &nbsp; &nbsp;&nbsp;
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="about-header">
+      <h1>About Us</h1>
+    </div>
+
+    <div class="content-container">
+      <div class="text-content">
+        <p class="highlight-text">At LUMISKINN, we believe that beauty and wellness go hand in hand.</p>
+        
+        <p>We are a skincare and healthcare store dedicated to providing high-quality, effective, and safe products that support your skin's natural glow and your overall well-being.</p>
+        
+        <p>From dermatologist-recommended skincare solutions to wellness essentials, our curated range is designed to help you feel confident in your skin, every day. Whether you're targeting specific skin concerns or building a healthy self-care routine, LUMISKINN offers trusted products that deliver real results.</p>
+        
+        <p>With a focus on innovation, quality ingredients, and customer care, we're here to make your journey to radiant skin and better health simple, empowering, and enjoyable.</p>
+        
+        <p class="highlight-text">Glow with confidence. Live with care.</p>
+      </div>
+      
+      <div class="video-container">
+        <video controls autoplay muted loop>
+          <source src="video1.mp4" type="video/mp4">
+          <source src="video1.webm" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-placeholder">
+        </div>
+      </div>
+    </div>
+
+    <div class="values-section">
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-title">Quality First</div>
+          <div class="value-description">We carefully curate products from trusted brands, ensuring every item meets our high standards for safety and effectiveness.</div>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-title">Science-Backed</div>
+          <div class="value-description">Our products are backed by dermatological research and proven ingredients that deliver visible results.</div>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-title">Wellness Focused</div>
+          <div class="value-description">We believe true beauty comes from within, offering holistic solutions for both skin health and overall wellness.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Transform Your Skincare Routine?</h2>
+        <p class="cta-text">Discover our carefully curated collection of premium skincare and wellness products designed to help you glow with confidence.</p>
+        <a href="catalog.html" class="cta-button">Shop Now</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
