@@ -3,6 +3,10 @@
 <head>
   <title>LUMISKINN</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -26,6 +30,7 @@
     .nav-left {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
     }
     
     .nav-center {
@@ -70,6 +75,7 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
     
     .selector {
@@ -180,23 +186,18 @@
       box-shadow: 0 4px 12px rgba(176, 48, 48, 0.2);
     }
     
-    @media (max-width: 768px) {
-      .search-container:hover .search-input {
-        width: 150px;
-      }
-    }
-    
     .hero-section {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       padding: 120px 200px 50px;
       gap: 20px;
+      flex-wrap: wrap;
     }
     
     .hero-text {
-      width: 50%;
-      flex-shrink: 0;
+      flex: 1;
+      min-width: 300px;
     }
     
     .hero-text h1 {
@@ -217,76 +218,96 @@
       margin-top: 0px;
       font-size: 19px;
       color: #D94D4D;
+      line-height: 1.6;
     }
     
     .hero-image {
-      width: 50%;
-      flex-shrink: 0;
+      flex: 1;
       display: flex;
       gap: 20px;
+      min-width: 300px;
+      flex-wrap: wrap;
     }
     
     .hero-image img {
-      width: 100%;
+      flex: 1;
+      min-width: 150px;
       max-width: 400px;
       height: auto;
       border-radius: 10px;
-      flex: 1;
     }
     
     .full-width-section {
       display: flex;
       justify-content: center;
-      padding: 0 200px;
-      margin-bottom: 10px;
+      padding: 0 20px;
+      margin-bottom: 50px;
     }
     
     .full-width-section img {
-      width: 110%;
+      width: 100%;
+      max-width: 1200px;
       height: auto;
       border-radius: 10px;
     }
     
     .featured-section {
-      padding: 0 180px;
+      padding: 0 20px;
       margin-top: 50px;
+      text-align: center;
     }
     
     .featured-section h2 {
       font-size: 28px;
       color: #B03030;
-      margin: 0;
+      margin: 0 0 30px 0;
     }
     
-    .featured-product {
-      display: flex; 
-      gap: 20px;
-      width: 104%;
-      flex-shrink: 0;
-      padding: 0 180px;
+    .featured-products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 0 20px;
       margin-top: 20px;
     }
     
-    .featured-product td {
+    .featured-product-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      vertical-align: top;
-      width: 25%;
+      flex: 1;
+      min-width: 250px;
+      max-width: 300px;
     }
     
-    .featured-product img {
-      width: 350px;
-      height: 350px;
+    .featured-product-item img {
+      width: 100%;
+      max-width: 250px;
+      height: 250px;
       object-fit: cover;
       border-radius: 10px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
-      display: block;
-      margin: 0 auto;
+      margin-bottom: 15px;
     }
     
-    .featured-product img:hover {
+    .featured-product-item img:hover {
       transform: scale(1.05);
       box-shadow: 0 8px 25px rgba(176, 48, 48, 0.3);
+    }
+    
+    .product-name {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .product-price {
+      font-size: 17px;
+      color: #D94D4D;
+      font-weight: bold;
     }
     
     a {
@@ -358,7 +379,8 @@
     .emailcolor {
       border: 2px solid #D94D4D;
       border-radius: 10px;
-      width: 300px;
+      width: 100%;
+      max-width: 300px;
       height: 30px;
       padding: 12px;
       font-size: 16px;
@@ -381,16 +403,24 @@
       padding: 0 80px;
       margin-top: 50px;
       margin-bottom: 50px;
+      flex-wrap: wrap;
+      gap: 20px;
     }
     
     .newsletter-content {
       flex: 1;
+      min-width: 300px;
     }
     
     .newsletter-content h3 {
       font-size: 23px;
       color: #B03030;
       margin-bottom: 15px;
+    }
+    
+    .about-us-link {
+      align-self: flex-end;
+      margin-bottom: 5px;
     }
     
     .featured-product a {
@@ -400,225 +430,156 @@
     .featured-product a::after {
       display: none;
     }
-    
-    .about-us-link {
-      align-self: flex-end;
-      margin-bottom: 5px;
-    }
 
-    /* Chatbot Styles */
-    .chatbot-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10000;
-      font-family: Arial, sans-serif;
-    }
-
-    .chatbot-toggle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #D94D4D, #B03030);
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(176, 48, 48, 0.3);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .chatbot-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 25px rgba(176, 48, 48, 0.4);
-    }
-
-    .chatbot-toggle:active {
-      transform: scale(0.95);
-    }
-
-    .chatbot-toggle.open {
-      background: #666;
-    }
-
-    .chatbot-window {
-      position: absolute;
-      bottom: 80px;
-      right: 0;
-      width: 350px;
-      height: 500px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px) scale(0.9);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chatbot-window.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-    }
-
-    .chatbot-header {
-      background: linear-gradient(135deg, #D94D4D, #B03030);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 18px;
-      border-radius: 20px 20px 0 0;
-    }
-
-    .chatbot-messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      background: #fafafa;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .message {
-      max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      font-size: 14px;
-      line-height: 1.4;
-      animation: messageSlide 0.3s ease;
-    }
-
-    @keyframes messageSlide {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
+    /* Mobile Responsiveness */
+    @media (max-width: 1024px) {
+      .hero-section {
+        padding: 120px 50px 50px;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      
+      .newsletter-section {
+        padding: 0 50px;
+      }
+      
+      .hero-text h3 {
+        padding: 0px 20px;
       }
     }
 
-    .message.bot {
-      background: linear-gradient(135deg, #D94D4D, #B03030);
-      color: white;
-      align-self: flex-start;
-      border-bottom-left-radius: 6px;
-    }
-
-    .message.user {
-      background: #e9ecef;
-      color: #333;
-      align-self: flex-end;
-      border-bottom-right-radius: 6px;
-    }
-
-    .chatbot-input-container {
-      padding: 20px;
-      background: white;
-      border-top: 1px solid #eee;
-      border-radius: 0 0 20px 20px;
-    }
-
-    .chatbot-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e9ecef;
-      border-radius: 25px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.3s ease;
-      box-sizing: border-box;
-    }
-
-    .chatbot-input:focus {
-      border-color: #D94D4D;
-    }
-
-    .chatbot-input::placeholder {
-      color: #999;
-    }
-
-    .quick-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .quick-action {
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
-      color: #D94D4D;
-      padding: 8px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .quick-action:hover {
-      background: #D94D4D;
-      color: white;
-      border-color: #D94D4D;
-    }
-
-    .typing-indicator {
-      display: none;
-      align-items: center;
-      gap: 5px;
-      color: #666;
-      font-style: italic;
-      font-size: 12px;
-    }
-
-    .typing-dots {
-      display: flex;
-      gap: 2px;
-    }
-
-    .typing-dots span {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #D94D4D;
-      animation: typing 1.4s infinite;
-    }
-
-    .typing-dots span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dots span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes typing {
-      0%, 60%, 100% {
-        transform: scale(1);
-        opacity: 0.5;
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
       }
-      30% {
-        transform: scale(1.2);
-        opacity: 1;
+      
+      .nav-center {
+        position: relative;
+        left: auto;
+        transform: none;
+        order: -1;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+      
+      .nav-left, .nav-right {
+        flex: 1;
+        justify-content: space-between;
+      }
+      
+      .hero-section {
+        flex-direction: column;
+        padding: 150px 20px 30px;
+        text-align: center;
+      }
+      
+      .hero-text {
+        width: 100%;
+        margin-bottom: 30px;
+      }
+      
+      .hero-text h1 {
+        font-size: 28px;
+      }
+      
+      .hero-text p {
+        font-size: 16px;
+      }
+      
+      .hero-text h3 {
+        margin-top: 50px;
+        padding: 0;
+        font-size: 20px;
+      }
+      
+      .hero-image {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .hero-image img {
+        max-width: 45%;
+        min-width: 120px;
+      }
+      
+      .featured-products-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+      
+      .featured-product-item {
+        max-width: 280px;
+        width: 100%;
+      }
+      
+      .newsletter-section {
+        flex-direction: column;
+        padding: 0 20px;
+        text-align: center;
+        gap: 30px;
+      }
+      
+      .newsletter-content {
+        width: 100%;
+        min-width: auto;
+      }
+      
+      .about-us-link {
+        align-self: center;
+      }
+      
+      .search-container:hover .search-input {
+        width: 150px;
+      }
+      
+      .selector select {
+        font-size: 12px;
       }
     }
 
     @media (max-width: 480px) {
-      .chatbot-window {
-        width: 320px;
-        height: 450px;
+      .hero-text h1 {
+        font-size: 24px;
+      }
+      
+      .hero-text p {
+        font-size: 14px;
+      }
+      
+      .hero-text h3 {
+        font-size: 18px;
+      }
+      
+      .featured-section h2 {
+        font-size: 24px;
+      }
+      
+      .newsletter-content h3 {
+        font-size: 20px;
+      }
+      
+      .hero-image {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .hero-image img {
+        max-width: 80%;
+        min-width: 200px;
+      }
+      
+      .navbar a {
+        font-size: 12px;
+      }
+      
+      .icon-group {
+        gap: 10px;
+      }
+      
+      .search-container:hover .search-input {
+        width: 120px;
       }
     }
   </style>
@@ -649,7 +610,6 @@
         <a href="signin.html">👤</a>
         <a href="cart.html">🛒</a>
       </div>
-      &nbsp; &nbsp;&nbsp;
     </div>
   </div>
   
@@ -667,7 +627,6 @@
   </div>
   
   <div class="full-width-section">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="bigpictures.png" alt="Full width image" />
   </div>
   
@@ -675,27 +634,38 @@
     <h2>Featured Products</h2>
   </div>
   
-  <div>
-    <table class="featured-product">
-      <tr> 
-        <td><a href="google.com"><img src="product1.avif"/></a></td>
-        <td><a href="google.com"><img src="product2.png"/></a></td>
-        <td><a href="google.com"><img src="product3.png"/></a></td>
-        <td><a href="google.com"><img src="product4.png"/></a></td>
-      </tr>
-      <tr>
-        <td><a href="google.com" class="product-link"><b><big>The Ordinary Formula Serum</big></b></a></td>
-        <td><a href="google.com" class="product-link"><b><big>CeraVe Foaming Cleanser</big></b></a></td>
-        <td><a href="google.com" class="product-link"><b><big>PITERA Facial Treatment Essence</big></b></a></td>
-        <td><a href="google.com" class="product-link"><b><big>NIVEA Moisture Body Milk</big></b></a></td>
-      </tr>
-      <tr>
-        <td style="font-size: 17px;color: #D94D4D;">$18.90 SGD</td>
-        <td style="font-size: 17px;color: #D94D4D;">$14.99 SGD</td>
-        <td style="font-size: 17px;color: #D94D4D;">$139.99 SGD</td>
-        <td style="font-size: 17px;color: #D94D4D;">$11.30 SGD</td>
-      </tr>
-    </table>
+  <div class="featured-products-container">
+    <div class="featured-product-item">
+      <a href="google.com"><img src="product1.avif" alt="The Ordinary Formula Serum"/></a>
+      <div class="product-name">
+        <a href="google.com" class="product-link"><b>The Ordinary Formula Serum</b></a>
+      </div>
+      <div class="product-price">$18.90 SGD</div>
+    </div>
+    
+    <div class="featured-product-item">
+      <a href="google.com"><img src="product2.png" alt="CeraVe Foaming Cleanser"/></a>
+      <div class="product-name">
+        <a href="google.com" class="product-link"><b>CeraVe Foaming Cleanser</b></a>
+      </div>
+      <div class="product-price">$14.99 SGD</div>
+    </div>
+    
+    <div class="featured-product-item">
+      <a href="google.com"><img src="product3.png" alt="PITERA Facial Treatment Essence"/></a>
+      <div class="product-name">
+        <a href="google.com" class="product-link"><b>PITERA Facial Treatment Essence</b></a>
+      </div>
+      <div class="product-price">$139.99 SGD</div>
+    </div>
+    
+    <div class="featured-product-item">
+      <a href="google.com"><img src="product4.png" alt="NIVEA Moisture Body Milk"/></a>
+      <div class="product-name">
+        <a href="google.com" class="product-link"><b>NIVEA Moisture Body Milk</b></a>
+      </div>
+      <div class="product-price">$11.30 SGD</div>
+    </div>
   </div>
   
   <div class="newsletter-section">
@@ -707,206 +677,6 @@
       <a href="history.html" class="about-link">About Us</a>
     </div>
   </div>
-
-  <!-- Chatbot -->
-  <div class="chatbot-container">
-    <button class="chatbot-toggle" id="chatbotToggle">💬</button>
-    <div class="chatbot-window" id="chatbotWindow">
-      <div class="chatbot-header">
-        LUMISKINN Assistant
-      </div>
-      <div class="chatbot-messages" id="chatbotMessages">
-        <div class="message bot">
-          Hi! I'm your LUMISKINN beauty assistant. How can I help you today? ✨
-        </div>
-      </div>
-      <div class="typing-indicator" id="typingIndicator">
-        LUMISKINN Assistant is typing
-        <div class="typing-dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-      <div class="chatbot-input-container">
-        <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask me about skincare, products, or orders...">
-        <div class="quick-actions">
-          <div class="quick-action" data-action="products">View Products</div>
-          <div class="quick-action" data-action="skincare">Skincare Tips</div>
-          <div class="quick-action" data-action="orders">Track Order</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Chatbot functionality
-    const chatbotToggle = document.getElementById('chatbotToggle');
-    const chatbotWindow = document.getElementById('chatbotWindow');
-    const chatbotMessages = document.getElementById('chatbotMessages');
-    const chatbotInput = document.getElementById('chatbotInput');
-    const typingIndicator = document.getElementById('typingIndicator');
-    const quickActions = document.querySelectorAll('.quick-action');
-
-    let isOpen = false;
-
-    // Predefined responses
-    const responses = {
-      greeting: [
-        "Hello! Welcome to LUMISKINN! How can I help you achieve your skincare goals today?",
-        "Hi there! I'm here to help you find the perfect skincare products. What are you looking for?",
-        "Welcome to LUMISKINN! Ready to elevate your skincare routine?"
-      ],
-      products: [
-        "Our featured products include The Ordinary Formula Serum ($18.90), CeraVe Foaming Cleanser ($14.99), PITERA Facial Treatment Essence ($139.99), and NIVEA Moisture Body Milk ($11.30). Which type of product interests you most?",
-        "We have amazing skincare products for every need! Are you looking for cleansers, serums, moisturizers, or treatments?"
-      ],
-      skincare: [
-        "Here are some essential skincare tips: 1) Always cleanse before applying products 2) Use sunscreen daily 3) Start with gentle products 4) Be consistent with your routine. What's your current skincare concern?",
-        "Great skincare starts with understanding your skin type! Are you dealing with dryness, oiliness, sensitivity, or aging concerns?"
-      ],
-      orders: [
-        "To track your order, please provide your order number or email. You can also check your account dashboard. Need help with a specific order?",
-        "For order inquiries, please visit your account page or contact our customer service team. What can I help you with regarding your order?"
-      ],
-      help: [
-        "I can help you with: 🌟 Product recommendations 🌟 Skincare advice 🌟 Order tracking 🌟 Ingredient information 🌟 Routine building. What interests you most?",
-        "I'm here to assist with all your skincare needs! Feel free to ask about products, ingredients, routines, or any beauty questions you have."
-      ],
-      default: [
-        "I'd love to help you with that! Can you tell me more about what you're looking for?",
-        "That's a great question! Let me help you find the best solution for your skincare needs.",
-        "I'm here to help! Could you provide a bit more detail about what you need?"
-      ]
-    };
-
-    // Toggle chatbot
-    chatbotToggle.addEventListener('click', () => {
-      isOpen = !isOpen;
-      chatbotWindow.classList.toggle('open', isOpen);
-      chatbotToggle.classList.toggle('open', isOpen);
-      chatbotToggle.textContent = isOpen ? '✕' : '💬';
-      
-      if (isOpen) {
-        chatbotInput.focus();
-      }
-    });
-
-    // Handle input
-    chatbotInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-
-    // Quick actions
-    quickActions.forEach(action => {
-      action.addEventListener('click', () => {
-        const actionType = action.dataset.action;
-        chatbotInput.value = getQuickActionText(actionType);
-        sendMessage();
-      });
-    });
-
-    function getQuickActionText(action) {
-      const actionTexts = {
-        products: "Show me your products",
-        skincare: "Give me skincare tips",
-        orders: "I want to track my order"
-      };
-      return actionTexts[action] || "Help me";
-    }
-
-    function sendMessage() {
-      const message = chatbotInput.value.trim();
-      if (!message) return;
-
-      // Add user message
-      addMessage(message, 'user');
-      chatbotInput.value = '';
-
-      // Show typing indicator
-      showTyping();
-
-      // Generate bot response
-      setTimeout(() => {
-        hideTyping();
-        const response = generateResponse(message);
-        addMessage(response, 'bot');
-      }, 1000 + Math.random() * 1000);
-    }
-
-    function addMessage(text, sender) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${sender}`;
-      messageDiv.textContent = text;
-      chatbotMessages.appendChild(messageDiv);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    function showTyping() {
-      typingIndicator.style.display = 'flex';
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    function hideTyping() {
-      typingIndicator.style.display = 'none';
-    }
-
-    function generateResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      
-      // Greeting detection
-      if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-        return getRandomResponse('greeting');
-      }
-      
-      // Product inquiries
-      if (lowerMessage.includes('product') || lowerMessage.includes('serum') || lowerMessage.includes('cleanser') || lowerMessage.includes('moisturizer')) {
-        return getRandomResponse('products');
-      }
-      
-      // Skincare advice
-      if (lowerMessage.includes('skincare') || lowerMessage.includes('routine') || lowerMessage.includes('tips') || lowerMessage.includes('advice')) {
-        return getRandomResponse('skincare');
-      }
-      
-      // Order tracking
-      if (lowerMessage.includes('order') || lowerMessage.includes('track') || lowerMessage.includes('shipping') || lowerMessage.includes('delivery')) {
-        return getRandomResponse('orders');
-      }
-      
-      // Help requests
-      if (lowerMessage.includes('help') || lowerMessage.includes('assist') || lowerMessage.includes('support')) {
-        return getRandomResponse('help');
-      }
-      
-      // Price inquiries
-      if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('$')) {
-        return "Our featured products are competitively priced! The Ordinary Serum is $18.90, CeraVe Cleanser is $14.99, PITERA Essence is $139.99, and NIVEA Body Milk is $11.30. Would you like more details about any specific product?";
-      }
-      
-      // Ingredient questions
-      if (lowerMessage.includes('ingredient') || lowerMessage.includes('contain') || lowerMessage.includes('formula')) {
-        return "I'd be happy to help with ingredient information! Which product are you curious about? Our team can provide detailed ingredient lists and explain how they benefit your skin.";
-      }
-      
-      // Default response
-      return getRandomResponse('default');
-    }
-
-    function getRandomResponse(category) {
-      const responseArray = responses[category];
-      return responseArray[Math.floor(Math.random() * responseArray.length)];
-    }
-
-    // Auto-scroll to bottom when new messages arrive
-    const observer = new MutationObserver(() => {
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    });
-    
-    observer.observe(chatbotMessages, { childList: true });
-  </script>
 
 </body>
 </html>
