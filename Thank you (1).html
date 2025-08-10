@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - LUMISKINN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            padding-top: 120px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            box-sizing: border-box;
+        }
+        
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 20px;
+            color: #B03030;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: #D94D4D;
+            font-size: 14px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #B03030;
+            transition: width 0.3s ease;
+        }
+        
+        .navbar a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar a:hover {
+            text-decoration: none;
+            color: #B03030;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .selector {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #B03030;
+            position: relative;
+        }
+        
+        .selector select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #B03030;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 5px 20px 5px 10px;
+            cursor: pointer;
+        }
+        
+        .selector select:focus {
+            outline: none;
+        }
+        
+        .selector::after {
+            content: "▼";
+            position: absolute;
+            right: 10px;
+            font-size: 10px;
+            pointer-events: none;
+        }
+        
+        .icon-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+        
+        .search-input {
+            width: 0;
+            height: 36px;
+            padding: 8px 12px;
+            border: 2px solid #D94D4D;
+            border-radius: 20px;
+            font-size: 14px;
+            background: white;
+            color: #333;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            transform: translateX(40px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-input::placeholder {
+            color: #999;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: #D94D4D;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .search-icon:before {
+            content: '🔍';
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .search-icon:hover:before {
+            transform: scale(1.1);
+        }
+        
+        .search-container:hover .search-input {
+            width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+            padding-right: 50px;
+        }
+        
+        .search-container:hover .search-icon {
+            background: #B03030;
+            transform: scale(1.05);
+        }
+        
+        .search-input:focus {
+            border-color: #B03030;
+            box-shadow: 0 4px 12px rgba(176, 48, 48, 0.2);
+        }
+
+        .success-container {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkmark::after {
+            content: '✓';
+            font-size: 50px;
+            color: #2d7d32;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 48px;
+            color: #8b2635;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #8b2635;
+            margin-bottom: 40px;
+        }
+
+        .credit {
+            font-size: 16px;
+            color: #8b2635;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            
+            .nav-left {
+                gap: 15px;
+            }
+            
+            .navbar a {
+                font-size: 12px;
+            }
+            
+            .search-container:hover .search-input {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .success-container {
+                padding: 40px 20px;
+            }
+            
+            .title {
+                font-size: 36px;
+            }
+            
+            .checkmark {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .checkmark::after {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html"><big>Home</big></a>
+            <a href="catalog.html"><big>Catalog</big></a>
+            <a href="contact.html"><big>Contact</big></a>
+        </div>
+        <div class="nav-center">
+            <big><big>LUMISKINN</big></big>
+        </div>
+        <div class="nav-right">
+            <div class="selector">
+                <select name="conversion" id="conversion">
+                    <option>Singapore | SGD $</option>
+                    <option>China | Yuan ¥</option>
+                    <option>America | USD $</option>
+                </select>
+            </div>
+            <div class="icon-group">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search products...">
+                    <div class="search-icon"></div>
+                </div>
+                <a href="#">👤</a>
+                <a href="cart.html">🛒</a>
+            </div>
+            &nbsp; &nbsp;&nbsp;
+        </div>
+    </div>
+
+    <div class="success-container">
+        <div class="checkmark"></div>
+        <h1 class="title">Thank you!</h1>
+        <p class="subtitle">your answers were submitted successfully</p>
+        <p class="credit">By : LUMISKINN</p>
+    </div>
+</body>
+</html>

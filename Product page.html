@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK-II PITERA Facial Treatment Essence - LUMISKINN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: #f9f9f9;
+            min-height: 100vh;
+            padding-top: 80px; /* Account for fixed navbar */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+            box-sizing: border-box;
+        }
+        
+        .nav-left {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 20px;
+            color: #B03030;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .navbar a {
+            text-decoration: none;
+            color: #D94D4D;
+            font-size: 14px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #B03030;
+            transition: width 0.3s ease;
+        }
+        
+        .navbar a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar a:hover {
+            text-decoration: none;
+            color: #B03030;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .selector {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #B03030;
+            position: relative;
+        }
+        
+        .selector select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #B03030;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 5px 20px 5px 10px;
+            cursor: pointer;
+        }
+        
+        .selector select:focus {
+            outline: none;
+        }
+        
+        .selector::after {
+            content: "▼";
+            position: absolute;
+            right: 10px;
+            font-size: 10px;
+            pointer-events: none;
+        }
+        
+        .icon-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+        
+        .search-input {
+            width: 0;
+            height: 36px;
+            padding: 8px 12px;
+            border: 2px solid #D94D4D;
+            border-radius: 20px;
+            font-size: 14px;
+            background: white;
+            color: #333;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            transform: translateX(40px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-input::placeholder {
+            color: #999;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 0;
+            width: 36px;
+            height: 36px;
+            background: #D94D4D;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .search-icon:before {
+            content: '🔍';
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .search-icon:hover:before {
+            transform: scale(1.1);
+        }
+        
+        .search-container:hover .search-input {
+            width: 200px;
+            opacity: 1;
+            transform: translateX(0);
+            padding-right: 50px;
+        }
+        
+        .search-container:hover .search-icon {
+            background: #B03030;
+            transform: scale(1.05);
+        }
+        
+        .search-input:focus {
+            border-color: #B03030;
+            box-shadow: 0 4px 12px rgba(176, 48, 48, 0.2);
+        }
+
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .product-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            position: relative;
+        }
+
+        .product-image {
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .award-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: #dc3545;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .product-bottle {
+            width: 200px;
+            height: 320px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            border-radius: 15px 15px 25px 25px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .bottle-cap {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(180deg, #6c757d, #495057);
+            border-radius: 8px 8px 12px 12px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .bottle-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #495057;
+        }
+
+        .bottle-label h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #dc3545;
+        }
+
+        .product-details {
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-title {
+            color: #8b1538;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .product-description {
+            color: #495057;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #8b1538;
+            font-weight: bold;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #740000;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #8b1538, #a91d42);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 21, 56, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 21, 56, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #8b1538;
+            border: 2px solid #8b1538;
+        }
+
+        .btn-secondary:hover {
+            background: #8b1538;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            
+            .nav-left {
+                gap: 15px;
+            }
+            
+            .navbar a {
+                font-size: 12px;
+            }
+            
+            .search-container:hover .search-input {
+                width: 150px;
+            }
+            
+            .product-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            
+            .product-details {
+                padding: 40px 30px;
+            }
+            
+            .product-title {
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="home.html"><big>Home</big></a>
+            <a href="catalog.html"><big>Catalog</big></a>
+            <a href="contact.html"><big>Contact</big></a>
+        </div>
+        <div class="nav-center">
+            <big><big>LUMISKINN</big></big>
+        </div>
+        <div class="nav-right">
+            <div class="selector">
+                <select name="conversion" id="conversion">
+                    <option>Singapore | SGD $</option>
+                    <option>China | Yuan ¥</option>
+                    <option>America | USD $</option>
+                </select>
+            </div>
+            <div class="icon-group">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search products...">
+                    <div class="search-icon"></div>
+                </div>
+                <a href="#">👤</a>
+                <a href="cart.html">🛒</a>
+            </div>
+            &nbsp; &nbsp;&nbsp;
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="product-container">
+            <div class="product-image">
+                <div class="award-badge">
+                    ALLURE<br>BEST OF<br>BEAUTY
+                </div>
+                <img src="https://www.beautyaffairs.sg/cdn/shop/products/SK-II-Facial-Treatment-Essence-250ml---Beauty-Affairs-1630654298.jpg?v=1653294422" alt="SK-II PITERA Facial Treatment Essence" style="max-width: 100%; max-height: 400px; width: auto; height: auto; object-fit: contain; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);" />
+            </div>
+            
+            <div class="product-details">
+                <h1 class="product-title">PITERA Facial Treatment Essence</h1>
+                
+                <p class="product-description">
+                    SK-II's Facial Treatment Essence, also known as the <span class="highlight">"miracle water,"</span> is a popular skincare product containing over <span class="highlight">90% PITERA™</span>, a proprietary ingredient derived from yeast fermentation. This essence is designed to improve skin texture, radiance, and clarity by promoting natural skin cell renewal. It's formulated with over <span class="highlight">50 micronutrients</span> like vitamins, minerals, amino acids, and organic acids that are similar to the skin's natural composition.
+                </p>
+                
+                <div class="price">$139.99 SGD</div>
+                
+                <div class="action-buttons">
+                    <a href="payment page.html" class="btn btn-primary">Buy Now</a>
+                    <button class="btn btn-secondary">Add to Cart 🛒</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
