@@ -537,84 +537,6 @@
         </div>
     </div>
 
-    <div id="feedback" class="feedback-container">
-        <h1 class="feedback-title">Product Feedback Form</h1>
-
-        <form action="#" method="get" class="feedback-form">
-            <label class="feedback-label">
-                <span class="label-text">Your name:</span>
-                <input 
-                    type="text" 
-                    name="name" 
-                    required 
-                    class="feedback-input"
-                >
-            </label><br><br>
-
-            <label class="feedback-label">
-                <span class="label-text">Your email:</span>
-                <input 
-                    type="email" 
-                    name="email" 
-                    required 
-                    class="feedback-input"
-                >
-            </label><br><br>
-
-            <label class="feedback-label">
-                <span class="label-text">How satisfied are you with the purchase:</span>
-                <div class="rating">
-                    <input type="radio" id="purchase-star5" name="purchase-rating" value="5" />
-                    <label for="purchase-star5">&#9733;</label>
-
-                    <input type="radio" id="purchase-star4" name="purchase-rating" value="4" />
-                    <label for="purchase-star4">&#9733;</label>
-
-                    <input type="radio" id="purchase-star3" name="purchase-rating" value="3" />
-                    <label for="purchase-star3">&#9733;</label>
-
-                    <input type="radio" id="purchase-star2" name="purchase-rating" value="2" />
-                    <label for="purchase-star2">&#9733;</label>
-
-                    <input type="radio" id="purchase-star1" name="purchase-rating" value="1" />
-                    <label for="purchase-star1">&#9733;</label>
-                </div>
-            </label><br><br>
-
-            <label class="feedback-label">
-                <span class="label-text">How satisfied are you with this company overall:</span>
-                <div class="rating">
-                    <input type="radio" id="company-star5" name="company-rating" value="5" />
-                    <label for="company-star5">&#9733;</label>
-
-                    <input type="radio" id="company-star4" name="company-rating" value="4" />
-                    <label for="company-star4">&#9733;</label>
-
-                    <input type="radio" id="company-star3" name="company-rating" value="3" />
-                    <label for="company-star3">&#9733;</label>
-
-                    <input type="radio" id="company-star2" name="company-rating" value="2" />
-                    <label for="company-star2">&#9733;</label>
-
-                    <input type="radio" id="company-star1" name="company-rating" value="1" />
-                    <label for="company-star1">&#9733;</label>
-                </div>
-            </label><br><br>
-
-            <label class="feedback-label extra">
-                Is there anything else you would like us to know?<br>
-                <textarea 
-                    rows="4" 
-                    cols="60" 
-                    name="feedback" 
-                    class="feedback-textarea"
-                ></textarea>
-            </label><br><br>
-
-            <button type="submit" class="feedback-submit-btn">Submit Feedback</button>
-        </form>
-    </div>
-
     <div class="payment-container">
         <div class="payment-header">
             <h1 class="payment-title">Secure Payment</h1>
@@ -627,11 +549,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-input" placeholder="e.g. John" name="first_name">
+                        <input type="text" class="form-input" placeholder="John" name="first_name">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-input" placeholder="e.g. Doe" name="last_name">
+                        <input type="text" class="form-input" placeholder="Smith" name="last_name">
                     </div>
                 </div>
             </div>
@@ -686,7 +608,7 @@
                 </div>
             </div>
 
-            <a href="#feedback" class="submit-btn">Submit Payment</a>
+            <a href="feedback.html" class="submit-btn">Submit Payment</a>
             
             <div class="security-text">
                 <svg class="lock-icon" viewBox="0 0 24 24">
@@ -699,4 +621,5 @@
 </body>
 
 </html>
+
 
